@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/style.css" rel="stylesheet" />
+<link href="css/themify-icons.css" rel="stylesheet" />
+<!-- Bootstrap -->
+
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/style2.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/themify-icons.css}" rel="stylesheet" />
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Conócenos</title>
+<!-- Bootstrap core CSS -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<link href="#" th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/scroll.css}" rel="stylesheet" />
+
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/function.js}"></script>
+</head>
+<!-- <body th:style="'background: url(' + @{/imgs/superman_wallpaper.jpg} + '); padding-bottom: 70px;'"> -->
+<body>
+	<!-- Barra de menus -->
+	<div id="wrap">
+		<header>
+			<div class="inner relative">
+				<a class="logo" href="#" th:href="@{/otros/conocenos}"><img
+					th:src="@{/imgs/icono.png}" alt="fresh design web" /></a> <a
+					id="menu-toggle" class="button dark" href="#"><i
+					class="icon-reorder"></i></a>
+				<nav id="navigation">
+					<ul id="main-menu">
+						<li class="parent"><a href="#" th:href="@{/clientes/listclientes}">Clientes</a></li>
+						<li class="parent"><a href="#" th:href="@{/materiales/listMateriales}">Materiales</a></li>
+						<li class="parent"><a href="#" th:href="@{/compras/listclientes}">Facturar</a></li>
+						<li class="parent"><a href="#" th:href="@{/factura/listFacturas}">Facturas</a></li>
+						<li class="parent"><a href="#" th:href="@{/registro/listusuarios}">Registrar usuarios</a></li>
+						<li class="current-menu-item"><a href="#" th:href="@{/otros/conocenos}">Conócenos</a></li>
+						<li class="parent"><a href="#" th:href="@{/otros/logout}">Logout</a></li>
+
+					</ul>
+				</nav>
+				<div class="clear"></div>
+			</div>
+		</header>
+	</div>
+	<div class="container-fluid"></div>
+	<div class="container">
+		<!-- Start: Desc -->
+		<div class="row me-row content-ct">
+			<h2 class="row-title">¿PORQUÉ DEBERÍA CONFIAR EN NOSOTROS?</h2>
+			<div class="col-md-4 feature">
+				<h3>ATENCIÓN PERSONALIZADA PARA CADA CLIENTE.</h3>
+				<p>Ofrecemos un servicio personalizado según la necesidad de
+					cada cliente.</p>
+			</div>
+			<div class="col-md-4 feature">
+				<h3>AMPLIA GAMA DE COLORES Y PINTURAS.</h3>
+				<p>Gracias a las tiendas colaboradoras tenemos un gran catálogo de pinturas, colores, texturas, etc.</p>
+			</div>
+			<div class="col-md-4 feature">
+				<h3>PROFESIONALES ALTAMENTE CUALIFICADOS.</h3>
+				<p>Nuestros profesionales están altamente cualificados para realizar incluso los trabajos más exigentes.</p>
+			</div>
+		</div>
+		<!-- End: Desc -->
+
+		<!-- Start: Speakers -->
+		<div class="row me-row content-ct speaker" id="speakers">
+			<h2 class="row-title">¿Qué nos diferencia de nuestros
+				competidores?</h2>
+			<div class="col-md-4 col-sm-6 feature">
+				<a><img th:src="@{/imgs/speaker-1.png}" alt="fresh design web" /></a>
+				<h3>REAIZAMOS TODO TIPO DE TRABAJOS</h3>
+				<p>Interiores, fachadas, dibujos decorativos, etc.</p>
+			</div>
+			<div class="col-md-4 col-sm-6 feature">
+				<a><img th:src="@{/imgs/garantia.png}" alt="fresh design web" /></a>
+				<h3>Sastisfacción garantizada</h3>
+				<p>Damos gran importancia a la satisfacción de nuestros clientes y, por lo tanto, nos esforzamos por ofrecer un servicio perfecto.</p>
+			</div>
+			<div class="col-md-4 col-sm-6 feature">
+				<a><img th:src="@{/imgs/Rapidez.png}" alt="fresh design web" /></a>
+				<h3>Rapidez</h3>
+				<p>Realizamos nuestros trabajos lo más rápido posible de manera que el impacto sea mínimo.</p>
+			</div>
+		</div>
+		<!-- End: Speakers -->
+	</div>
+	<footer>
+		<div class="navbar navbar-default navbar-fixed-bottom">
+			<div class="container">
+				<p class="navbar-text pull-left">Copyright Sergio Gamero Fern&aacute;ndez
+				</p>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

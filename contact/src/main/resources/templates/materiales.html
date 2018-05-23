@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+
+<title>Cómics</title>
+
+<!-- Bootstrap core CSS -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link href="#" th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/scroll.css}" rel="stylesheet" />
+
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/function.js}"></script>
+
+</head>
+
+<body>
+
+	<!-- Barra de menus -->
+	<div id="wrap">
+		<header>
+			<div class="inner relative">
+				<a class="logo" href="#" th:href="@{/otros/conocenos}"><img
+					th:src="@{/imgs/icono.png}" alt="fresh design web" /></a> <a
+					id="menu-toggle" class="button dark" href="#"><i
+					class="icon-reorder"></i></a>
+				<nav id="navigation">
+					<ul id="main-menu">
+						<li class="parent"><a href="#"
+							th:href="@{/clientes/listclientes}">Clientes</a></li>
+						<li class="current-menu-item"><a href="#"
+							th:href="@{/materiales/listMateriales}">Materiales</a></li>
+						<li><a href="#" th:href="@{/compras/listclientes}">Facturar</a></li>
+						<li><a href="#" th:href="@{/factura/listFacturas}">Facturas</a></li>
+						<li class="parent"><a href="#" th:href="@{/registro/listusuarios}">Registrar usuarios</a></li>
+						<li class="parent"><a href="#" th:href="@{/otros/conocenos}">Conócenos</a></li>
+						<li class="parent"><a href="#" th:href="@{/otros/logout}">Logout</a></li>
+
+					</ul>
+				</nav>
+				<div class="clear"></div>
+			</div>
+		</header>
+	</div>
+	<br />
+
+
+	<div class="container">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-md-2">
+							<h4>Lista de materiales</h4>
+						</div>
+						<div class="col-md-10">
+							<form class="form-inline" action="#"
+								th:action="@{/materiales/searchMateriales}">
+								<div class="form-group">
+									<input type="number" name="id" placeholder="Id" class="form-control" /> 
+									<input type="text" name="nombre" placeholder="Nombre" class="form-control" /> 
+									<input type="number" step="any" name="pMin" placeholder="Precio mínimo" class="form-control" /> 
+									<input type="number" step="any" name="pMax" placeholder="Precio máximo" class="form-control" /> 
+									<input type="submit" value="buscar" class="btn btn-info" />
+								</div>
+									<a href="#" th:href="@{/materiales/report}" target="_blanck">
+										<button type="button" class="btn btn-info">
+											<span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>
+										</button>
+									</a>
+							</form>
+						</div>
+					</div>
+				</div>
+				<table class="table table-fixed">
+					<thead>
+						<tr>
+							<th class="col-xs-2">Id</th>
+							<th class="col-xs-3">Nombre</th>
+							<th class="col-xs-3">&nbsp;Precio</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="material: ${materiales}">
+							<td class="col-xs-2"><span th:text="${material.idMateriales}"></span></td>
+							<td class="col-xs-3"><span th:text="${material.nombre}"></span></td>
+							<td class="col-xs-3"><span th:text="${material.precio}"></span></td>
+							<td class="col-xs-2">
+								<a href="#" th:href="@{/materiales/listMaterialesUpdate?idMateriales=__${material.idMateriales}__}">
+									<button type="button" class="btn btn-warning">
+										<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button> 
+								</a>
+							</td>
+							<td class="col-xs-2">
+								<a href="#" th:href="@{/materiales/removeMateriales?idMateriales=__${material.idMateriales}__}">
+									<button type="button" class="btn btn-danger">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button> 
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<form action="#" th:action="@{/materiales/addMateriales}" th:object="${material}" method="post">
+							<div class="col-md-3">
+								Nombre: <input type="text" th:field="*{nombre}"
+									th:value="${nombre}" class="form-control" />
+								<h5 th:if="${comprobador==1}" style="color: red">Campo mal
+									introducido</h5>
+							</div>
+								<script>
+									function calcular(){
+									  //Obtienes el valor
+									  var valor = document.getElementById("valor").value;
+
+									  var result= document.getElementById('result');
+									  var total= document.getElementById('total');
+
+									  //le sumas el 10% y lo agregas al HTML
+									  var aumento = parseInt(valor)*0.10;
+									  
+									  var totalconiva = (parseInt(valor)+aumento);
+									  document.getElementById("resultado").value=totalconiva;
+
+									  //agrega los resultados al DOM
+									  result.innerHTML = 'IVA de: €' + aumento;
+									  total.innerHTML =  'Total:     €' + (parseInt(valor)+aumento);
+									}
+								</script>
+							<div class="col-md-3">
+								<!--Con el evento "onkeyUp" haces el calculo a medida que ingresan el valor-->
+								Ingrese un valor: <input id="valor" type="number" step="any" class="form-control" onkeyUp="calcular();"/>
+								<br></br>
+								<br></br>
+								<span id="result"></span>
+								<br></br>
+								<span id="total"></span>
+							</div>
+							
+							
+							<div class="col-md-3">
+								Precio más IVA: <input type="number" id="resultado" step="any" th:field="*{precio}"
+									th:value="${precio}" class="form-control" />
+									<h5 th:if="${comprobador==2}" style="color:red">Campo mal introducido</h5>  
+							</div>
+							<!--<input type="text" id="resultado"/>-->
+
+							
+							<br /> 
+							
+							<input type="hidden" th:field="*{idMateriales}"
+								th:value="${idMateriales}" class="form-control" />
+							<div class="col-md-1">
+								<input type="button" value="Cancelar" class="btn btn-success" />
+							</div>
+
+							<div class="col-md-1">
+								<input type="submit" value="Guardar" class="btn btn-info" />
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+.table-fixed-2 thead {
+  width: 97%;
+}
+.table-fixed-2 tbody {
+  height: 200px;
+  overflow-y: scroll; 
+  width: 100%;
+}
+.table-fixed-2 thead, .table-fixed-2 tbody, .table-fixed-2 tr, .table-fixed-2 td, .table-fixed-2 th {
+  display: block;
+}
+.table-fixed-2 tbody td, .table-fixed-2 thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}
+
+1
+#header h1 { display:inline; }

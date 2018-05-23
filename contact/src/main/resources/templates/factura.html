@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+
+<title>Facturas</title>
+
+<!-- Bootstrap core CSS -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link href="#" th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/scroll.css}" rel="stylesheet" />
+
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/function.js}"></script>
+
+</head>
+
+<body>
+	<!-- Barra de menus -->
+	<div id="wrap">
+		<header>
+			<div class="inner relative">
+				<a class="logo" href="#" th:href="@{/otros/conocenos}"><img
+					th:src="@{/imgs/icono.png}" alt="fresh design web" /></a> <a
+					id="menu-toggle" class="button dark" href="#"><i
+					class="icon-reorder"></i></a>
+				<nav id="navigation">
+					<ul id="main-menu">
+						<li class="parent"><a href="#"
+							th:href="@{/clientes/listclientes}">Clientes</a></li>
+						<li class="parent"><a href="#"
+							th:href="@{/materiales/listMateriales}">Materiales</a></li>
+						<li class="parent"><a href="#" th:href="@{/compras/listclientes}">Facturar</a></li>
+						<li class="current-menu-item"><a href="#" th:href="@{/factura/listFacturas}">Facturas</a></li>
+						<li class="parent"><a href="#" th:href="@{/registro/listusuarios}">Registrar usuarios</a></li>
+						<li class="parent"><a href="#" th:href="@{/otros/conocenos}">Conócenos</a></li>
+						<li class="parent"><a href="#" th:href="@{/otros/logout}">Logout</a></li>
+
+					</ul>
+				</nav>
+				<div class="clear"></div>
+			</div>
+		</header>
+	</div>
+	<br />
+	<!-- Fin barra de menus -->
+
+
+	<div class="container">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-md-4">
+							<h4>Lista de facturas</h4>
+						</div>
+						<div class="col-md-8">
+							<form class="form-inline" action="#"
+								th:action="@{/factura/searchFacturas}">
+
+								<input type="number" name="idFactura" placeholder="Id"
+									class="form-control" /> <input type="decimal" name="precio"
+									placeholder="Precio" class="form-control" /> <input
+									type="text" name="dni" placeholder="DNI" class="form-control" />
+
+								<input type="submit" value="buscar" class="btn btn-info" />
+								
+								<form class="form-inline" action="#" th:action="@{/factura/contarFacturas}">
+									<div class="form-group">
+										<input type="hidden" name="var" class="form-control" value="1" />
+										<button type="submit" id="inSubmit"
+											class="btn btn-info glyphicon glyphicon-question-sign"
+											th:onclick="'alert(\'Actualmente hay ' + ${var} + ' facturas en la base de datos \');'">
+										</button>
+									</div>
+								</form>
+							</form>
+
+						</div>
+
+					</div>
+				</div>
+				<table class="table table-fixed">
+					<thead>
+						<tr>
+							<th class="col-xs-2">Id</th>
+							<th class="col-xs-3">Precio</th>
+							<th class="col-xs-3">&nbsp;DNI del comprador</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="factura: ${facturas}">
+							<td class="col-xs-2"><span th:text="${factura.idFactura}"></span></td>
+							<td class="col-xs-3"><span th:text="${factura.precio}"></span></td>
+							<td class="col-xs-3"><span th:text="${factura.cliente.getDni()}"></span></td>
+							<td class="col-xs-2"><a href="#" th:href="@{/factura/report?idFactura=__${factura.idFactura}__}" target="_blanck">
+									<button type="button" class="btn btn-warning">
+										<span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>
+									</button> <input type="hidden" name="var" class="form-control" value="1" />
+							</a></td>
+
+							<td class="col-xs-2"><a href="#"
+								th:href="@{/factura/removeFactura?idFactura=__${factura.idFactura}__}">
+									<button type="button" class="btn btn-danger">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button> <input type="hidden" name="var" class="form-control" value="1" />
+							</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

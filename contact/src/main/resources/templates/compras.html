@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Facturar</title>
+<!-- Bootstrap core CSS -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<link href="#" th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/menu.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/scrollcompra.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/scrollcompra2.css}" rel="stylesheet" />
+
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/function.js}"></script>
+</head>
+<body>
+	<!-- Barra de menus -->
+	<div id="wrap">
+		<header>
+			<div class="inner relative">
+				<a class="logo" href="#" th:href="@{/otros/conocenos}"><img
+					th:src="@{/imgs/icono.png}" alt="fresh design web" /></a> <a
+					id="menu-toggle" class="button dark" href="#"><i
+					class="icon-reorder"></i></a>
+				<nav id="navigation">
+					<ul id="main-menu">
+						<li class="parent"><a href="#" th:href="@{/clientes/listclientes}">Clientes</a></li>
+						<li class="parent"><a href="#" th:href="@{/materiales/listMateriales}">Materiales</a></li>
+						<li class="current-menu-item">><a href="#" th:href="@{/compras/listclientes}">Facturar</a></li>
+						<li><a href="#" th:href="@{/factura/listFacturas}">Facturas</a></li>
+						<li class="parent"><a href="#" th:href="@{/otros/conocenos}">Conócenos</a></li>
+						<li class="parent"><a href="#" th:href="@{/otros/logout}">Logout</a></li>
+
+					</ul>
+				</nav>
+				<div class="clear"></div>
+			</div>
+		</header>
+	</div>
+	<br />
+	<div class="container">
+		<div th:if="${errorCliente!=null}" class="alert alert-danger"
+			role="alert" text-align="center">
+			<P ALIGN="center">Por favor introduzca un cliente!!!</P>
+		</div>
+		<div th:if="${errorCompra!=null}" class="alert alert-danger"
+			role="alert" text-align="center">
+			<P ALIGN="center">Para realizar una factura tiene que añadir
+				materiales!!!</P>
+		</div>
+		<div th:if="${errorTotal!=null}" class="alert alert-danger"
+			role="alert" text-align="center">
+			<P ALIGN="center">Sin cliente ni materiales no se puede realizar la
+				factura!!!</P>
+		</div>
+		<div th:if="${exito!=null}" class="alert alert-success" role="alert"
+			text-align="center">
+			<P ALIGN="center">
+				Factura realizada con exito!! Imprimir factura <a href="#"
+					th:href="@{/compras/report}" target="_blanck">
+					<button type="button" class="btn btn-info">
+						<span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>
+					</button>
+				</a>
+			</P>
+
+		</div>
+	</div>
+	<!-- Panel de compras -->
+
+	<!-- Busqueda de clientes -->
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<div class="row">
+					<div class="col-md-4">
+
+						<form class="form-inline" action="#"
+							th:action="@{/compras/searchcliente}">
+
+							<div class="form-group">
+								<input type="text" name="busqueda" class="form-control" /> <input
+									type="submit" value="buscar" class="btn btn-info" />
+							</div>
+						</form>
+
+						<br />
+
+						<div class="panel panel-default">
+							<table class="table table-fixed">
+
+								<thead>
+									<tr>
+										<th class="col-xs-3">Dni</th>
+										<th class="col-xs-3">Nombre</th>
+										<th class="col-xs-3">Apellidos</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="cliente: ${materiales}">
+
+
+										<td class="col-xs-3"><span th:text="${cliente.dni}"></span></td>
+
+										<td class="col-xs-3"><span th:text="${cliente.nombre}"></span></td>
+										<td class="col-xs-4"><span th:text="${cliente.apellidos}"></span></td>
+
+
+										<td class="col-xs-2"><a href="#"
+											th:href="@{/compras/listclientesupdate?dni=__${cliente.dni}__}">
+												<button type="button" class="btn btn-warning">
+													<span class="glyphicon glyphicon-hand-up"
+														aria-hidden="true"></span>
+												</button>
+										</a></td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+
+
+
+						<div class="row">
+							<div class="col-md-9">
+								<form action="#" th:action="@{/compras/addcliente}"
+									th:object="${cliente}" method="post">
+
+									<div class="form-group">
+
+										Dni: <input type="text" th:field="*{dni}" th:value="${dni}"
+											class="form-control" readonly="readonly" />
+									</div>
+
+									<div class="form-group">
+
+										Nombre: <input type="text" th:field="*{nombre}"
+											th:value="${nombre}" class="form-control" readonly="readonly" />
+									</div>
+
+									<div class="form-group">
+
+										Apellidos: <input type="text" th:field="*{apellidos}"
+											th:value="${apellidos}" class="form-control"
+											readonly="readonly" />
+									</div>
+
+									<div class="form-group">
+
+										Telefono: <input type="number" th:field="*{telefono}"
+											th:value="${telefono}" class="form-control"
+											readonly="readonly" />
+									</div>
+									<a class="logo" href="#" th:href="@{/otros/conocenos}"></a>
+
+								</form>
+
+							</div>
+
+							<div class="col-md-3">
+
+								<!-- Botones de agregar cliente nuevo y borrar del form bloqueado -->
+								<br />
+								<button type="button" class="btn btn-primary"
+									data-toggle="modal" data-target="#exampleModal2"
+									data-whatever="@fat">
+									<span class="glyphicon glyphicon-user"></span>
+								</button>
+
+								<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+								<br /> <br /> <br /> <a href="#"
+									th:href="@{/compras/removecliente}">
+									<button type="button" class="btn btn-danger">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button>
+								</a>
+
+								<!-- Fin botones de agregar cliente nuevo y borrar del form bloqueado -->
+
+							</div>
+						</div>
+					</div>
+
+
+					<!-- Fin formulario bloqueado con la información del cliente -->
+
+					<!-- Modal añadir clientes nuevo y seleccionarlo atraves de la busqueda -->
+
+					<div>
+
+
+						<!-- Modal crear cliente nuevo -->
+
+						<div class="modal fade" id="exampleModal2" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Añadir cliente</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form action="#" th:action="@{/compras/addcliente}"
+											th:object="${cliente}" method="post">
+
+											<div class="form-group">
+
+												Dni: <input type="text" th:field="*{dni}" th:value="${dni}"
+													class="form-control" maxlength="9" pattern=".{9,9}"/>
+													
+											</div>
+
+											<div class="form-group">
+
+												Nombre: <input type="text" th:field="*{nombre}"
+													th:value="${nombre}" class="form-control" />
+													
+											</div>
+
+											<div class="form-group">
+
+												Apellidos: <input type="text" th:field="*{apellidos}"
+													th:value="${apellidos}" class="form-control" />
+													
+											</div>
+
+											<div class="form-group">
+
+												Telefono: <input type="number" th:field="*{telefono}"
+													th:value="${telefono}" class="form-control"  maxlength="9" oninput="maxLengthCheck(this)" />
+													
+											</div>
+
+
+											<div class="">
+												<br /> <a href="#" th:href="@{/compras/listclientes}"><input
+													type="button" value="Cancelar" class="btn btn-success" /></a>&nbsp;&nbsp;<input
+													type="submit" value="Guardar" class="btn btn-info" />
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Fin modal crear cliente nuevo -->
+					</div>
+					<!-- Fin modal añadir clientes nuevo y seleccionarlo atraves de la busqueda -->
+
+					<!-- Lista de materiales a comprar -->
+					<div class="col-md-8">
+						<div class="row">
+							<div class="col-md-8">
+								<form class="form-inline" action="#"
+									th:action="@{/compras/searchMateriales}">
+									<div class="form-group">
+										<input type="number" name="id" placeholder="Id"
+											class="form-control" /> <input type="text" name="nombre"
+											placeholder="Nombre" class="form-control" />
+									</div>
+									<br />
+									<div class="form-group">
+										<input type="number" step="any" name="pMin"
+											placeholder="Precio mínimo" class="form-control" /> <input
+											type="number" step="any" name="pMax"
+											placeholder="Precio máximo" class="form-control" /> <input
+											type="submit" value="buscar" class="btn btn-info" />
+									</div>
+
+								</form>
+
+							</div>
+							<div class="col-md-4">
+								<div class="modal-body">
+									<form class="form-inline">
+										<div class="form-group">
+
+											<div class="input-group">
+												<input align='right' type="double"
+													th:field="*{compra.total}" th:value="${compra.total}"
+													class="form-control" readonly="readonly"
+													style="text-align: right;" /> <span
+													class="input-group-addon">€</span>
+											</div>
+
+
+
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<br />
+						<div class="panel panel-default">
+
+
+							<table class="table table-fixed">
+								<thead>
+									<tr>
+										<th class="col-xs-3">Id</th>
+										<th class="col-xs-3">Nombre</th>
+										<th class="col-xs-3">&nbsp;Precio</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="material: ${materiales}">
+										<td class="col-xs-3"><span th:text="${material.idMateriales}"></span></td>
+										<td class="col-xs-3"><span th:text="${material.nombre}"></span></td>
+										<td class="col-xs-3"><span th:text="${material.precio}"></span></td>
+										<td class="col-xs-3"><a href="#"
+											th:href="@{/compras/listMaterialesUpdate?idMateriales=__${material.idMateriales}__}">
+												<button type="button" class="btn btn-warning">
+													<span class="glyphicon glyphicon-hand-up"
+														aria-hidden="true"></span>
+												</button>
+										</a></td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div class="panel panel-default">
+
+
+							<table class="table table-fixed-2">
+								<thead>
+									<tr>
+										<th class="col-xs-3">Id</th>
+										<th class="col-xs-3">Nombre</th>
+										<th class="col-xs-3">&nbsp;Precio</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="compra: ${compras}">
+										<td class="col-xs-3"><span th:text="${compra.idMat}"></span></td>
+										<td class="col-xs-3"><span th:text="${compra.nombre}"></span></td>
+										<td class="col-xs-3"><span th:text="${compra.precio}"></span></td>
+
+										<td class="col-xs-3"><a href="#"
+											th:href="@{/compras/removemateriales?idMat=__${compra.idMat}__}">
+												<button type="button" class="btn btn-danger">
+													<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+												</button>
+										</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+							<div class="col-md-3"></div>
+							<div class="col-md-6">
+								<form class="form-inline" action="#"
+									th:action="@{/compras/removecompra}">
+
+									<input type="submit" value="Eliminar factura"
+										class="btn btn-danger" />
+								</form>
+							</div>
+							<div class="col-md-3">
+
+								<form class="form-inline" action="#"
+									th:action="@{/compras/realizarcompra}">
+
+									<input type="submit" value="Realizar factura"
+										class="btn btn-info" />
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- Fin lista de materiales a comprar -->
+
+				</div>
+				<!-- Fin row "linea" formulario bloqueado -->
+			</div>
+			<!-- Fin "panel-body" buscador cliente -->
+		</div>
+		<!-- Fin "panel panel-default" buscador cliente -->
+
+	</div>
+	<!-- Fin container -->
+	<!-- Fin panel de compras -->
+	<script type="text/javascript">
+		$('#exampleModal1').on('show.bs.modal', function(event) {
+			var button = $(event.relatedTarget) // Button that triggered the modal
+			var recipient = button.data('whatever') // Extract info from data-* attributes
+			// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+			// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+			var modal = $(this)
+			modal.find('.modal-title').text('New message to ' + recipient)
+			modal.find('.modal-body input').val(recipient)
+		})
+		$('#exampleModal2').on('show.bs.modal', function(event) {
+			var button = $(event.relatedTarget) // Button that triggered the modal
+			var recipient = button.data('whatever') // Extract info from data-* attributes
+			// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+			// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+			var modal = $(this)
+			modal.find('.modal-title').text('New message to ' + recipient)
+			modal.find('.modal-body input').val(recipient)
+		})
+	</script>
+	<script>
+		function maxLengthCheck(object){
+			if (object.value.length>object.maxLength){
+				object.value=object.value.slice(0, object.maxLength);
+			}
+		}
+	</script>
+</body>
+</html>
